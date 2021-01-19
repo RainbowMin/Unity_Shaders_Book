@@ -7,9 +7,10 @@ Shader "_MJ/Ch8/AlphaBlendWithOnOff"
         _AlphaScale ("Alpha Scale", Range(0,1)) = 1 //AlphaScale用于在透明纹理的基础上控制整体的透明度
 
         [Header(Blend Setting)]
-        [Enum(UnityEngine.Rendering.BlendOp)] blendOperation("BlendOp", Float) = 0    //Add
+        [Enum(UnityEngine.Rendering.BlendOp)] blendOperation("BlendOp", Float) = 0  //Add
 		[Enum(UnityEngine.Rendering.BlendMode)] SrcBlend ("SrcBlend", Float) = 5    //SrcAlpha
 		[Enum(UnityEngine.Rendering.BlendMode)] DstBlend ("DstBlend", Float) = 10   //OneMinusSrcAlpha
+        [Enum(UnityEngine.Rendering.CullMode)] cullMode("CullMode", Float) = 2    //0=Off, 1= Front, 2=Back  默认背面剔除
     }
     SubShader
     {
@@ -31,6 +32,7 @@ Shader "_MJ/Ch8/AlphaBlendWithOnOff"
             //MJ 使用透明混合动态开关
             BlendOp [blendOperation]
             Blend [SrcBlend] [DstBlend]
+            Cull [cullMode]
 
             //我们将源颜色（该片元着色器产生的颜色） 的混合因子设为SrcAlpha， 把目标颜色（已经存在于颜色缓冲中的颜色） 的混合因子设为OneMinusSrcAlpha， 以得到合适的半透明效果。
             //Blend SrcAlpha OneMinusSrcAlpha
